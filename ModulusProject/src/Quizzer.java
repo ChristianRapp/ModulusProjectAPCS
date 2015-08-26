@@ -17,20 +17,22 @@ public class Quizzer
 		{
 			Scanner userInput = new Scanner(System.in);
 			System.out.println("Hello! How many questions would you like to answer today?");
-			nQ = userInput.nextInt();
+			nOfQ = userInput.nextInt();
 			
 		}
 		public static void generateQuestions()
 		{
-			int specialAsk = (int)(Math.random()*(nOfQ/2));
-			int askSpecial = (int)(Math.random()*(nOfQ/2)+(nOfQ/2));
+			int specialAsk = (int)(Math.random()*(nOfQ/2)+1);
+			int askSpecial = (int)(Math.random()*(nOfQ/2)+(nOfQ/2)+1);
 			Scanner userInput = new Scanner(System.in);
 			for( int i=0;i<nOfQ; i++)
 				{
 					
 					int mod1 =(int)(Math.random()*10)+1;
 					int mod2 =(int)(Math.random()*10)+10;
-					int answer = mod1%mod2;
+				
+					int answer = mod2%mod1;
+					
 					if(i==specialAsk)
 						{
 							mod2=mod1;
@@ -40,20 +42,51 @@ public class Quizzer
 							if( userAnswer == answer)
 								{
 									nOfC++;
+									System.out.println("Correct!");
 								}
 							else
 								{
 									nOfW++;
+									System.out.println("Sorry, wrong");
 								}
 							
 							
 						}
 					if(i==askSpecial)
 						{
-							
+							System.out.println("What is "+mod1+"%"+mod2+"?");
+							answer = mod1%mod2;
+							int userAnswer = userInput.nextInt();
+							if( userAnswer == answer)
+								{
+									nOfC++;
+									System.out.println("Correct!");
+								}
+							else
+								{
+									nOfW++;
+									System.out.println("Sorry, wrong");
+								}
 						}
+					else
+						{
+							System.out.println("What is "+mod2+"%"+mod1+"?");
+							int userAnswer = userInput.nextInt();
+							if(userAnswer == answer)
+								{
+									nOfC++;
+									System.out.println("Correct!");
+									
+								}
+							else
+								{
+									nOfW++;
+									System.out.println("Sorry, wrong");
+								}
+						}
+					
 				}
-			
+			System.out.println("You have gotten "+nOfC+" correct and "+nOfW+" wrong.");
 			
 			
 		}
